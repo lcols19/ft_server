@@ -32,7 +32,7 @@ server {
 
 server {
    listen 80;
-   server_name pma.com www.pma.com;
+   server_name example.com www.example.com;
    root /usr/share/phpMyAdmin;
 
    location / {
