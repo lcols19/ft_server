@@ -1,13 +1,11 @@
 ## Packages Installation ##
 apt-get update -y && apt-get upgrade -y && apt-get install -qq nginx \
 php-json php-xmlrpc php-xml php-soap php-fpm php-mysql php-mbstring \
+php7.3 php-common php-cli php-opcache php7.3-readline \
 mariadb-server \
 wordpress \
 vim wget
 ###########################
-
-# wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-all-languages.tar.gz
-# tar -xzvf phpMyAdmin-4.9.0.1-all-languages.tar.gz
 
 ## Apache2 Removal ##
 apt-get remove --purge apache2 -y
@@ -44,8 +42,8 @@ mysql < /usr/share/phpMyAdmin/sql/create_tables.sql -u root
 mysql -u root -e "GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'pma'@'localhost' IDENTIFIED BY 'pmapass'"
 mysql -u root -e "FLUSH PRIVILEGES"
 #copy phpmyadmin.conf onto /etc/nginx/conf.d
-mkdir /usr/share/phpMyAdmin/tmp
-chmod 777 /usr/share/phpMyAdmin/tmp
+# mkdir /usr/share/phpMyAdmin/tmp
+# chmod 777 /usr/share/phpMyAdmin/tmp
 chown -R www-data:www-data /usr/share/phpMyAdmin
 mysql -u root -e "CREATE DATABASE app_db"
 mysql -u root -e "GRANT ALL PRIVILEGES ON app_db.* TO 'app_user'@'localhost' IDENTIFIED BY 'password'"

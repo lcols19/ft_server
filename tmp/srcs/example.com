@@ -6,9 +6,9 @@ server {
     include snippets/ssl-params.conf;
 
     root /var/www/example.com;
-    index index.php index.html index.htm;
+    index index.php index.html index.htm index.php;
 
-    server_name example.com www.example;
+    server_name example.com www.example.com;
 
     location / {
         try_files $uri $uri/ =404;
@@ -28,36 +28,4 @@ server {
     server_name example.com www.example.com;
 
     return 301 https://$server_name$request_uri;
-}
-
-server {
-   listen 80;
-   server_name example.com www.example.com;
-   root /usr/share/phpMyAdmin;
-
-   location / {
-      index index.php;
-   }
-
-## Images and static content is treated different
-   location ~* ^.+.(jpg|jpeg|gif|css|png|js|ico|xml)$ {
-      access_log off;
-      expires 30d;
-   }
-
-   location ~ /\.ht {
-      deny all;
-   }
-
-   location ~ /(libraries|setup/frames|setup/libs) {
-      deny all;
-      return 404;
-   }
-
-   location ~ \.php$ {
-      include /etc/nginx/fastcgi_params;
-      fastcgi_pass 127.0.0.1:9000;
-      fastcgi_index index.php;
-      fastcgi_param SCRIPT_FILENAME /usr/share/phpMyAdmin$fastcgi_script_name;
-   }
 }
