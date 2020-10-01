@@ -18,7 +18,8 @@ service nginx start
 mkdir /var/www/my_website
 chown -R $USER:$USER /var/www/my_website
 # nano /etc/nginx/sites-available/my_website -> make a copy from tmp (creation)
-mv /tmp/my_website /etc/nginx/sites-available/
+rm /etc/nginx/sites-*/default
+mv /tmp/my_website /etc/nginx/sites-enabled/
 ln -s /etc/nginx/sites-available/my_website /etc/nginx/sites-enabled/
 nginx -t
 service nginx restart
@@ -26,21 +27,24 @@ service nginx restart
 
 # PHP Test #####
 service php7.3-fpm start
-# nano /var/www/my_website/info.php -> copy from tmp 
+# nano /var/www/my_website/info.php -> copy from tmp (creation)
 mv /tmp/info.php /var/www/my_website
 # should now rm the file
 ################
 
 # Self-Signed SSL Certificate Creation ###############
+service mysql start
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout \
-/etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+/etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
+-subj \
+"/C=BE/ST=BRUSSELS CITY/L=Brussels/O=19 Coding School/OU=Lacollar/CN=172.17.0.2/emailAddress=lacollar@student.s19.be"
 openssl dhparam -out /etc/nginx/dhparam.pem 4096
-# nano /etc/nginx/snippets/self-signed.conf -> cp from tmp
+# nano /etc/nginx/snippets/self-signed.conf -> cp from tmp (creation)
 mv /tmp/self-signed.conf /etc/nginx/snippets/
-# nano /etc/nginx/snippets/ssl-params.conf
+# nano /etc/nginx/snippets/ssl-params.conf -> cp fro tmp (creation)
 mv /tmp/ssl-params.conf /etc/nginx/snippets/
 cp /etc/nginx/sites-available/my_website /etc/nginx/sites-available/my_website.bak
-# nano /etc/nginx/sites-available/my_website -> copy from tmp
+# nano /etc/nginx/sites-available/my_website -> copy from tmp (editing)
 mv /tmp/localhost /etc/nginx/sites-available/
 nginx -t
 service restart nginx

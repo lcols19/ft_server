@@ -8,6 +8,7 @@ server {
     server_name my_website;
 
     location / {
+        autoindex on;
         try_files $uri $uri/ =404;
     }
 
