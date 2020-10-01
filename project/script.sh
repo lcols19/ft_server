@@ -1,7 +1,8 @@
 # Packages Installation ####
 apt-get update -y && apt-get upgrade -y && apt-get install -qq nginx \
 mariadb-server wget curl \
-php-{json,mbstring,curl,gd,intl,fpm,soap,xml,xmlrpc,zip,mysql}
+php-{json,mbstring,curl,gd,intl,fpm,soap,xml,xmlrpc,zip}
+apt-get install php-mysql -qq
 ############################
 
 # no need to run mysql_secure_installation
@@ -38,14 +39,14 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout \
 /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
 -subj \
 "/C=BE/ST=BRUSSELS CITY/L=Brussels/O=19 Coding School/OU=Lacollar/CN=172.17.0.2/emailAddress=lacollar@student.s19.be"
-openssl dhparam -out /etc/nginx/dhparam.pem 4096
+openssl dhparam -out /etc/nginx/dhparam.pem 2048
 # nano /etc/nginx/snippets/self-signed.conf -> cp from tmp (creation)
 mv /tmp/self-signed.conf /etc/nginx/snippets/
 # nano /etc/nginx/snippets/ssl-params.conf -> cp fro tmp (creation)
 mv /tmp/ssl-params.conf /etc/nginx/snippets/
 cp /etc/nginx/sites-available/my_website /etc/nginx/sites-available/my_website.bak
 # nano /etc/nginx/sites-available/my_website -> copy from tmp (editing)
-mv /tmp/localhost /etc/nginx/sites-available/
+mv /tmp/my_website /etc/nginx/sites-available/
 nginx -t
 service restart nginx
 # replace one line in server block
@@ -81,7 +82,7 @@ mysql -e "CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unic
 mysql -e "GRANT ALL ON wordpress.* TO 'wordpress_user'@'localhost' IDENTIFIED BY 'password'"
 mysql -e "FLUSH PRIVILEGES"
 service php7.3-fpm restart
-# nano /etc/nginx/sites-available/localhost -> cp from tmp (editing)
+# nano /etc/nginx/sites-available/my_website -> cp from tmp (editing)
 mv /tmp/my_website /etc/nginx/sites-available/
 nginx -t
 cd /tmp && curl -LO https://wordpress.org/latest.tar.gz
