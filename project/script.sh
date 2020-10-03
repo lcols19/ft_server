@@ -55,25 +55,25 @@ service restart nginx
 # PHPMyAdmin Installation #################
 wget -P /usr/share \
 https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.tar.gz
-tar -xzvf /usr/share/phpMyAdmin-latest-all-languages.tar.gz
+tar -xzvf /usr/share/phpMyAdmin-latest-all-languages.tar.gz --directory /usr/share
 rm /usr/share/phpMyAdmin-latest-all-languages.tar.gz
-mv /usr/share/phpMyAdmin-latest-all-languages /usr/share/phpMyAdmin
-cp -pr /usr/share/phpMyAdmin/config.sample.inc.php \
-/usr/share/phpMyAdmin/config.inc.php
-# nano /usr/share/phpMyAdmin/config.inc.php -> cp from tmp
-rm /usr/share/phpMyAdmin/config.inc.php
-mv /tmp/config.inc.php /usr/share/phpMyAdmin
+mv /usr/share/phpMyAdmin-* /usr/share/phpMyAdmin
+# cp -pr /usr/share/phpMyAdmin/config.sample.inc.php \
+# /usr/share/phpMyAdmin/config.inc.php
+# nano /usr/share/phpMyAdmin/config.inc.php -> cp from tmp (creation)
+# rm /usr/share/phpMyAdmin/config.inc.php
+# mv /tmp/config.inc.php /usr/share/phpMyAdmin
 mysql < /usr/share/phpMyAdmin/sql/create_tables.sql -u root -p
 mysql -e "GRANT ALL PRIVILEGES ON phpmyadmin.* TO 'pma'@'localhost' IDENTIFIED BY 'pmapass'"
 mysql -e "FLUSH PRIVILEGES"
 # nano /etc/nginx/conf.d/phpMyAdmin.conf -> cp from tmp (creation)
-mv /tmp/phpMyAdmin.conf /etc/nginx/conf.d/
+mv /tmp/phpMyAdmin.conf /etc/nginx/sites-enabled/
 mkdir /usr/share/phpMyAdmin/tmp
 chmod 777 /usr/share/phpMyAdmin/tmp
 chown -R www-data:www-data /usr/share/phpMyAdmin
 service nginx restart && service php7.3-fpm restart
 mysql -e "CREATE DATABASE app_db"
-mysql -e "GRANT ALL PRIVILEGES ON app_db.* TO 'app_user'@'localhost' IDENTIFIED BY 'password'"
+mysql -e "GRANT ALL PRIVILEGES ON app_db.* TO 'lauretta'@'localhost' IDENTIFIED BY 'collard'"
 mysql -e "FLUSH PRIVILEGES"
 ###########################################
 

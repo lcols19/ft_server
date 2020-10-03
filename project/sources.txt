@@ -9,3 +9,4 @@ https://phoenixnap.com/kb/how-to-install-phpmyadmin-on-debian-10
 https://github.com/matteoolefloch/ft_server/blob/master/src/start.sh
 https://www.digitalocean.com/community/questions/nginx-and-php-getting-error-404-with-scripts
 https://www.linuxbabe.com/debian/install-lemp-stack-debian-10-buster
+https://stackoverflow.com/questions/18402395/how-to-uncompress-a-tar-gz-in-another-directory

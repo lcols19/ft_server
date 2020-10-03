@@ -101,3 +101,8 @@ Thu Oct 1st
 should do the ssl thing before the php configuration and db installation otherwiser I cannot start nginx
 I can't seem to make openssl work inside a shell script. maybe it will if it's in the dockerfile.
 the issue comes from php-mysql package. i wonder if I have to have it.
+
+----------
+Sat Oct 3rd
+-------------
+check privileges on db with show grants for pma
