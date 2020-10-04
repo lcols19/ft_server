@@ -54,31 +54,29 @@ to see url address : ip addr show eth0 | grep inet | awk '{print $2; }' | sed 's
 -----------
 thu 30 July
 ------------
-
 A LEMP Stack doesn't include phpMyadmin by default. It has to be installed.
 Mariadb is prefered over mysql since mysql isn't officially referenced on 
-debian buster repositories.
-
+	debian buster repositories.
 Why install -y and not install ?
-
 MariaDB is an open-source fork/impletemntation of MySQL.
 To check if nginx is running (and other services) : service --status-all
 Wordpress has to be installed prior to installing phpMyadmin.
-Docker-machine HAS to be used during this project just as it was working on mac computers.
-Docker manages one container at a time whereas docker-compose manages multiple containers at the same time.
+Docker-machine HAS to be used during this project just as it was working on mac
+	computers.
+Docker manages one container at a time whereas docker-compose manages multiple
+	containers at the same time.
 to use mariadb command: system mysql start puis mariadb
 
 ---------
 Mon 3 Aug
 ----------
-
-It's a good idea to always expose ports on dockerfile, then optionnaly publish it back to the Docker host with -p so the outside world can connect to the service.
+It's a good idea to always expose ports on dockerfile, then optionnaly publish 
+	it back to the Docker host with -p so the outside world can connect to the service.
 
 
 ---------
 Tue 4 Aug
 ----------
-
 mysql has to be started before mysql cli and msql shell(called monitor here) can be used. 
 Typing msql redirect to mariadb.
 To access help on mariadb/mysql : \h or help
@@ -86,23 +84,40 @@ To access help on mariadb/mysql : \h or help
 ---------
 Thu 6 Aug
 ----------
-
-webdock.io's tutorial abotu ssl not to be followed since their paths aren't good and they don't show every step required.
+webdock.io's tutorial abotu ssl not to be followed since their paths aren't good
+	and they don't show every step required.
 
 ---------
 Fri Aug 7
 ----------
-
-hostadvice's tutorial to ssl is bad since it lacks spaces in its ssel-params.conf file.
+hostadvice's tutorial to ssl is bad since it lacks spaces in its ssl-params.conf
+	file.
 
 ----------
 Thu Oct 1st
 ------------
-should do the ssl thing before the php configuration and db installation otherwiser I cannot start nginx
-I can't seem to make openssl work inside a shell script. maybe it will if it's in the dockerfile.
+should do the ssl thing before the php configuration and db installation
+	otherwise I cannot start nginx
+I can't seem to make openssl work inside a shell script. maybe it will if it's
+	in the dockerfile.
 the issue comes from php-mysql package. i wonder if I have to have it.
 
 ----------
 Sat Oct 3rd
 -------------
 check privileges on db with show grants for pma
+
+----------
+Sun Oct 4th
+-------------
+no need to run mysql_secure_installation.
+to list all packages : apt list --installed.
+mw1 works when editing it manually through command line.
+The issue could be that I do a dhparam of 2048 instead of 4096. The issue lie
+	definitely with ssl as when I add ssl next to 443 in the listen directive,
+	I can no longer access the autoindex.
+message codes : 200(success), 302(I set it up in my nginx conf), 404 (doesnt exist)
+to see access logs : cat /var/log/nginx/access.log
+to see error logs : cat /var/log/nginx/error.log
+404 when favicon doesnt exist, should create it
+date to see date of machine

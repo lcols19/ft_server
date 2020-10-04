@@ -20,7 +20,7 @@ mkdir /var/www/my_website
 chown -R $USER:$USER /var/www/my_website
 # nano /etc/nginx/sites-available/my_website -> make a copy from tmp (creation)
 rm /etc/nginx/sites-*/default
-mv /tmp/my_website /etc/nginx/sites-enabled/
+# mv /tmp/my_website /etc/nginx/sites-enabled/
 ln -s /etc/nginx/sites-available/my_website /etc/nginx/sites-enabled/
 nginx -t
 service nginx restart
@@ -40,10 +40,10 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout \
 -subj \
 "/C=BE/ST=BRUSSELS CITY/L=Brussels/O=19 Coding School/OU=Lacollar/CN=172.17.0.2/emailAddress=lacollar@student.s19.be"
 openssl dhparam -out /etc/nginx/dhparam.pem 2048
-# nano /etc/nginx/snippets/self-signed.conf -> cp from tmp (creation)
-mv /tmp/self-signed.conf /etc/nginx/snippets/
-# nano /etc/nginx/snippets/ssl-params.conf -> cp fro tmp (creation)
-mv /tmp/ssl-params.conf /etc/nginx/snippets/
+# # nano /etc/nginx/snippets/self-signed.conf -> cp from tmp (creation)
+# mv /tmp/self-signed.conf /etc/nginx/snippets/
+# # nano /etc/nginx/snippets/ssl-params.conf -> cp fro tmp (creation)
+# mv /tmp/ssl-params.conf /etc/nginx/snippets/
 cp /etc/nginx/sites-available/my_website /etc/nginx/sites-available/my_website.bak
 # nano /etc/nginx/sites-available/my_website -> copy from tmp (editing)
 mv /tmp/my_website /etc/nginx/sites-available/

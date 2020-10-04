@@ -1,0 +1,40 @@
+server {
+    listen 80;
+    listen [::]:80;
+
+    server_name my_website;
+
+    root /var/www/my_website_1/html;
+    index index.php index.html index.htm;
+
+    location / {
+	autoindex on;
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+    }
+}
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    root /var/www/my_website_1/html;
+    index index.php index.html index.htm;
+
+	include snippets/self-signed.conf;
+	include snippets/ssl-params.conf;
+    server_name my_website;
+
+    location / {
+	autoindex on;
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+    }
+}
