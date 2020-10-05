@@ -144,3 +144,15 @@ to get ip address : docker-machine ip
 # Check if I don't have file to remove
 # Copy files onto the container through docker copy
 # Restart services eventually
+
+-------
+Oct 5th
+--------
+solved 404 error by creating /var/www/my_website and /var/www/my_website/html 
+	in my script as well as commenting out the copy of info.php and 
+	my_website.bak.
+Have to add tmp dir otherwise I have error messages at the bottom of phpMyadmin
+	webpage.
+To remove all images : docker rmi -f $(docker images -a -q)
+I don't know if my db works both in phpMyadmin and wordpress. supposedly it 
+	isn't since a new wordpress post doesn't appear in the app_db database.
