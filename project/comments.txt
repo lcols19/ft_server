@@ -156,3 +156,6 @@ Have to add tmp dir otherwise I have error messages at the bottom of phpMyadmin
 To remove all images : docker rmi -f $(docker images -a -q)
 I don't know if my db works both in phpMyadmin and wordpress. supposedly it 
 	isn't since a new wordpress post doesn't appear in the app_db database.
+wordpress doesn't work only on 443. IDK why. that's probably because I didn't 
+	have a server block listening on 443 in phpmyadmin.conf. now I can't access 
+	it on 80 neither. It was bc the db name in wpconfig didnt match the db name of creation in shell script.
