@@ -158,4 +158,16 @@ I don't know if my db works both in phpMyadmin and wordpress. supposedly it
 	isn't since a new wordpress post doesn't appear in the app_db database.
 wordpress doesn't work only on 443. IDK why. that's probably because I didn't 
 	have a server block listening on 443 in phpmyadmin.conf. now I can't access 
-	it on 80 neither. It was bc the db name in wpconfig didnt match the db name of creation in shell script.
+	it on 80 neither. It was bc the db name in wpconfig didnt match the db name 
+	of creation in shell script.
+
+------
+Oct 6th
+---------
+To check if a server has ssl :
+	openssl s_client -quiet -connect google.com:443
+"echo ^D | telnet www.google.com https" doesn't seem to be workign as telnet 
+	isn't a downloaded package.
+To check if db works both in wordpress and phpmyadmin, check db in phpmyadmin first, then refresh as wordpress is setup.
+https://stackoverflow.com/questions/11427091/phpmyadmin-says-no-privilege-to-create-database-despite-logged-in-as-root-user
+doesn't work as otherwise phpmyadmin cant work anymore
